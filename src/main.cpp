@@ -1,9 +1,12 @@
-#include <iostream>
+#include "namespaces.h"
 
-using namespace std;
+using namespace a;
+using namespace mycode;
 
 int main()
 {
-	cout << "Hello, World" << endl;
+	//mycode::foo();
+	//a::foo();// Calls the "foo" function in the "mycode" namespace
+	foo();			// implies mycode::foo();
 	return 0;
 }
