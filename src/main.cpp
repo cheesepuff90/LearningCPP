@@ -1,31 +1,60 @@
 #include <iostream>
-#include <math.h>
+using namespace std;
+
+double fact(int n)
+{
+	if (n == 0)
+		return 1;
+	else
+		return n * fact(n - 1);
+}
+
+
+double facthelper(int n, double result)
+{
+	if(n == 0)
+		return result;
+	else
+		return facthelper(n-1, n * result);
+}
+
+int fiborecur(int n)
+{
+	if (n <= 1)
+		return n;
+	
+	else
+		return fiborecur (n-1) + fiborecur (n-2);
+}
+
+
+int fibohelper(int a, int b, int n)
+{
+	if(n == 0){
+		return a;
+	}
+	else{
+		return fibohelper (b, a+b, n-1);
+	}
+}
+
+int fiboiter(int n)
+{
+	return fibohelper(0, 1, n);
+}
+
 
 int main()
 {
-	int a, b;
-	std::cin >> a >> b;
-	
-	for (int i = a; i >= 2; i--){
-		if(a%i == 0 && b%i == 0){
-			a /= i;
-			b /= i;
-		}
+	int n;
+
+	while(true) {
+		cin >> n;
+		cout << fiboiter(n) << endl;
+		cout << "ITER" << endl;
+		cout << fiborecur(n) << endl;
+		cout << "RECU" << endl;
+
 	}
-	
-	while (a != 1){
-		
-		int x = ceil ((double)b / a);
-		std::cout << "1/ " << x << ", ";
-		a *= x;
-		a -= b;
-		b *= x;
-		for (int i = a; i >= 2; i--){
-			if (a % i== 0 && b%i == 0){
-				a/=i;
-				b/=i;
-			}
-		}
-	}
-	std::cout << "1/ " << b << std::endl;
+	return 0;
 }
