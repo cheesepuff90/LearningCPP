@@ -1,46 +1,18 @@
 #include <iostream>
 using namespace std;
 
-class hi
+int main() 
 {
-	public :
-	hi();
-	hi(int n);
-	void setValue (int n);
-	int getValue();
+	int n = 8;
 	
-	private :
-	int value;
-};
-
-int main ()
-{
-	hi h(700), g;
-	cout << h.getValue() << endl;
-	cout << g.getValue() << endl;
-	
-	h.setValue(100);
-	cout << h.getValue() << endl;
-
-	return 0;
-}
-
-int hi::getValue()
-{
-	return value;
-}
-
-void hi::setValue(int n)
-{
-	value = n;
-}
-
-hi::hi()
-{
-	value = 0;
-}
-
-hi::hi(int m)
-{
-	value = m;
+	for (int i = 0 ; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			if(i*j == 0 || i*j % n == 0)
+				cout << " *";
+			else
+				cout << "  ";
+		}	
+		cout << endl;
+	}
+	return 0;	
 }
