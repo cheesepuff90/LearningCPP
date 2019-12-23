@@ -1,25 +1,36 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
+
+bool divisible (int x, int y)
+{
+	if(x % y == 0)
+		return true;
+	else 
+		return false;
+}
+
+bool prime(int a)
+{
+	for (int i = a/2; i >1; i--)
+		if (divisible(a, i))
+			return false;
+	
+	return a == 1 ? false : true;
+}
 
 int main()
 {
-  int n; bool prime = true;
-	 
-  cin >> n;
-	
-  for (int i = 2; i <= n / 2; i++)
-  {
-      if(n % i == 0)
-      {
-          prime = false;
-		  
-          break;
-      }
-  }
-  if (prime)
-      cout << "소수다" << endl;
-  else
-      cout << "소수가 아니다" << endl;
-	
-  return 0;
+	int n;
+	int a;
+
+	cin >> n;
+
+	    for (a=2; a <= n / 2; a++)
+    {
+        if ((prime(a)) && (prime(n-a)))
+        {
+            cout << n << " = " << a << " + " << n-a << endl;
+        }
+    }
+
 }
