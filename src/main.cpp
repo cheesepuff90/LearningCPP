@@ -1,22 +1,46 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
 
-int num(int n) 
-{ 
-    int a[n], b[n]; 
-    a[0] = b[0] = 1; 
-    for (int i = 1; i < n; i++) 
-    { 
-        a[i] = a[i-1] + b[i-1]; 
-        b[i] = a[i-1]; 
-    } 
-    return a[n-1] + b[n-1]; 
-} 
-
-int main() 
-{ 
+int main()
+{
 	int n;
-	cin >> n;
-    cout << num(n) << endl; 
-    return 0; 
+	cin>>n;                         
+	int array[n][n];
+	int len=n,a=1,b=0,i;
+	
+	while(a<=n*n)                      
+	{
+		for(i=b;i<len;i++)
+		{
+			array[b][i]=a++;
+		}
+		for(i=b+1;i<len;i++)
+		{
+			array[i][len-1]=a++;
+		}
+		for(i=len-2;i>=b;i--)
+		{
+			array[len-1][i]=a++;
+		}
+		for(i=len-2;i>b;i--)
+		{
+			array[i][b]=a++;
+		}
+		b++,len=len-1;
+		
+	}
+	if(!n%2)
+	{
+		array[(n+1)/2][(n+1)/2]=n*n;
+	}
+	for(i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			cout<<array[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+	return 0;
 }
+
