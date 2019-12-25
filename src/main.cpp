@@ -1,7 +1,17 @@
 #include<iostream>
 using namespace std;
 
-class Rational
+class number
+{
+	public:
+		number(int num);
+		virtual int absolute();
+	
+	private:
+		int mNum;
+};
+
+class Rational : public number
 {
 public:
 	Rational(double value);
@@ -9,11 +19,27 @@ public:
 	int getNumer();
 	int getDenom();
 	void setRational(double value);
+	virtual int absolute() override;
 	
 private:
 	int mNumer;
 	int mDenom;
 };
+
+number::number(int num)
+{
+	mNum = num;
+}
+int number::absolute ()
+{
+	if (mNum < 0)
+	{
+		return -mNum;
+	} else
+	{
+		return mNum;
+	}
+}
 
 Rational operator+(Rational& lhs, Rational& rhs)
 {
@@ -92,12 +118,16 @@ void Rational::setRational(double value)
 
 int main()
 {
+	number n(-10);
+	
 	Rational half(0.5);
 	Rational qurd(1, 4);
 	
+	cout << n.absolute() << endl;
 	cout << half << endl;
+	cout << half.absolute() << endl;
 	// (half + qurd).printValue();
-	Rational res = half + qurd; 
-	cout << res << endl;
+	//Rational res = half + qurd; 
+	//cout << res << endl;
 	return 0;
 }
