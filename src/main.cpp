@@ -1,43 +1,27 @@
+#include<stdio.h>
 #include<iostream>
 using namespace std;
 
-int main()
-{
-	int N, M;
+int main(){
 	
-	cin >> N >> M;
+	int n, sum=0;
+	int a[150000];
+	bool flag=true;
 	
-	int seat[41] = {};
-	int vip[41] = {};
-	int answer = 1;
+	(cin>>n).get();
 	
-	for (int i = 1; i < M+1; i++)
-	{
-		cin >> vip[i];
-		
+	for(int i=0;i<n;i++){
+		(cin>>a[i]).get();
 	}
 	
-	seat[0] = 1;
-	seat[1] = 1;
-	seat[2] = 2;
+	sum = a[0] > a[1] ? a[0] : a[1];
 	
-	for (int j = 3; j <= N; j++)
-	{
-		seat [j] = seat [j-1] + seat [j-2];
+	for(int i = 2; i < n - 1; i++){
+		flag = a[i+1] > a[i]; 
+		
+		if(flag)
+			sum += a[i+1] - a[i];
 	}
 	
-	vip [M+1] = N+1;
-	
-	for (int k = 1; k <= M+1; k++)
-	{
-		int count = 0;
-		for (int z  = vip [k-1] + 1; z < vip [k]; z++)
-		
-			 count ++;
-		
-		answer *= seat[count];
-	}
-	
-	cout << answer;
-	
+	cout<<sum<<endl;
 }
