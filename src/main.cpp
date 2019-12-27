@@ -1,59 +1,63 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-int sort(int a[], int x, int y)
+int gcd (int a, int b)
 {
-	int v, i, j, temp;
-	v = a[x];
-	i = x;
-	j = y+1;
-	do {
-		do{
-			i++;
-		}while (a[i] < v && i <= y);
-		
-		do{
-			j--;
-		}while (v < a[j]);
-		
-		if (i < j){
-			temp = a[i];
-			a[i] = a[j];
-			a[j] = temp;
-		}
-	}
-	while (i < j);
-	a[x] = a[j];
-	a[j] = v;
+	int r = 1;
 	
-	return (j);
+	while (r != 0)
+	{
+		r = a%b;
+		a = b;
+		b = r;
+	}
+	
+	return a;
 }
 
-void quickSort (int a[], int x, int y)
+int big (int a1, int a2, int b1, int b2)
 {
-	int j;
-	if (x < y){
-		j = sort(a, x, y);
-		quickSort(a, x, j-1);
-		quickSort(a, j+1, y);
-	}
+	if (a1*b2 > b1*a2)
+		return 1;
+	else return 0;
 }
 
 int main()
 {
-	int a[100], n, i;
-	cout << "array 개수: ";
+	int num[100] = {};
+	int i, j, k = 0, x, y, n, nk;
+	
 	cin >> n;
-	cout << "배열 숫자들:\n";
 	
-	for (i = 0; i < n; i++)
-		cin >> a[i];
-	quickSort(a, 0, n-1);
+	for (i = 2; i <= n; i++){
+		for (j = 1; j < i; j++){
+			if (gcd(i, j)== 1){
+				num[k++] = j;
+				num[k++] = i;
+			}
+		}
+	}
+	nk = k;
 	
-	cout << "정렬된 숫자들: ";
+	for(i = 0; i < nk; i += 2){
+		for (j = 0; j < nk - i - 2; j += 2){
+			if (big(num[j], num[j+1], num[j+2], num[j+3])){
+				x = num[j];
+				y = num[j+1];
+				num [j] = num [j+2];
+				num [j+1] = num [j+3];
+				num [j+2] = x;
+				num [j+3] = y;
+			}
+		}
+	}
+	cout << "0/1" << endl;
 	
-	for (i = 0; i < n; i++)
-		cout << " " << a[i];
+	for (i = 0; i < nk; i+=2){
+		cout << num [i] << "/" << num [i+1] << endl;
+	}
+	
+	cout << "1/1" << endl;
 	
 	return 0;
 }
