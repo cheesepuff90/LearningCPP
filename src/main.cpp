@@ -1,58 +1,55 @@
 #include <iostream>
+#include <math.h>
 
 using namespace std;
 
-int scale(int n)
+class derivation
 {
-	return n ? 1 + scale(n / 10) : 0;
+	public:
+	derivation (double x);
+	double fact(double x);
+	double euler_expo(double x); // e^x
+	double getEulerDeriv();
+	
+	private:
+	double mInput;
+	double h = 0.00001; // static
+
+};
+
+derivation::derivation (double x) : mInput (x) {}
+
+
+double derivation::fact(double x)
+{
+	return x ? x * fact(x - 1) : 1;
 }
 
-int exp(int n)
+double derivation::euler_expo(double x)
 {
-	return (n - 1) ? 10 * exp(n-1) : 1;
+	double e = 0;
+	for(int i = 0; i < 100; i++)
+		e += 1.0 / fact(i);
+	
+	return pow(e, x);
 }
 
-int main()
+double derivation::getEulerDeriv()
 {
-	const int segments[10][15] = {
-		{1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1},
-		{0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1},
-		{1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1},
-		{1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1},
-		{1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1},
-		{1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1},
-		{1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1},
-		{1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1},
-		{1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1},
-		{1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1}
-	};
-
-	int input;
-	cout << "INPUT: ";
-	cin >> input;
+	double res;
+	res = (euler_expo(mInput+h) - euler_expo(mInput)) / h;
 	
-	cout << "SCALE: " << scale(input) << ", EXP: " << exp(scale(input)) << endl << endl;
+	return res;
+}
+
+int main(){
+	derivation deriv(5);
+	cout << deriv.euler_expo(5) << endl;
+	cout << deriv.getEulerDeriv() << endl;
 	
-	int size = scale(input);
-	int* foo = new int[size];
-	
-	for (int i = 0; i < size; i++){
-		foo[i] = input / exp(scale(input));
-		input = input % exp(scale(input));
-	}
-
-
-	for (int j = 0; j < 5; j++) {
-		for (int x = 0; x < size; x++) {
-			for (int y = (j * 3); y < (j*3 + 3); y++) {
-				if (segments[foo[x]][y] == 1)
-					cout << "●";
-				else cout << "○";
-			}
-			cout << " ";
-		}
-		cout << endl;
-	}
-
+	int n;
+	n = cin.get();
+	cout << n << endl;
 	return 0;
+	
 }
