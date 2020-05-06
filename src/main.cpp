@@ -1,55 +1,35 @@
+// helloworld.cpp
+
 #include <iostream>
 #include <math.h>
 
 using namespace std;
 
-class derivation
+int main()
 {
-	public:
-	derivation (double x);
-	double fact(double x);
-	double euler_expo(double x); // e^x
-	double getEulerDeriv();
-	
-	private:
-	double mInput;
-	double h = 0.00001; // static
-
-};
-
-derivation::derivation (double x) : mInput (x) {}
-
-
-double derivation::fact(double x)
-{
-	return x ? x * fact(x - 1) : 1;
-}
-
-double derivation::euler_expo(double x)
-{
-	double e = 0;
-	for(int i = 0; i < 100; i++)
-		e += 1.0 / fact(i);
-	
-	return pow(e, x);
-}
-
-double derivation::getEulerDeriv()
-{
-	double res;
-	res = (euler_expo(mInput+h) - euler_expo(mInput)) / h;
-	
-	return res;
-}
-
-int main(){
-	derivation deriv(5);
-	cout << deriv.euler_expo(5) << endl;
-	cout << deriv.getEulerDeriv() << endl;
-	
 	int n;
-	n = cin.get();
-	cout << n << endl;
-	return 0;
+	int size = 1000;
+	int* arr = new int[size];
 	
+	int count = 0;
+	
+	cout << "enter number";
+	cin >> n;
+	
+	for (int i = 2; i<n; i++)
+		for (int j = 2; j<=i; j++){
+			if (i%j == 0)
+				break;
+			else if (j+1 > sqrt(i)){
+				arr[count] = i;
+				count = count+1;
+				break;
+			}
+		}
+	
+	for (int i = 0; i < count; i++)
+		cout << arr[i] << " ";
+	
+	return 0;
+			
 }
